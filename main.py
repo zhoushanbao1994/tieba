@@ -6,6 +6,9 @@ import time
 import copy
 import logging
 
+# 贴吧账户信息
+bduss = os.environ['BDUSS']
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -168,7 +171,8 @@ def client_sign(bduss, tbs, fid, kw):
 
 
 def main():
-    b = os.environ['BDUSS'].split('#')
+    # 获取所有的账户信息
+    b = bduss.split('#')
     for n, i in enumerate(b):
         logger.info("开始签到第" + str(n) + "个用户")
         tbs = get_tbs(i)
