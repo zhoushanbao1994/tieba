@@ -8,6 +8,10 @@ import logging
 
 # 贴吧账户信息
 bduss = os.environ['BDUSS']
+# 添加 server 酱通知
+sckey = os.environ["SERVERCHAN_SCKEY"]
+send_url = "https://sc.ftqq.com/%s.send" % (sckey)
+send_content = 'Server ERROR'
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -181,6 +185,9 @@ def main():
             client_sign(i, tbs, j["id"], j["name"])
         logger.info("完成第" + str(n) + "个用户签到")
     logger.info("所有用户签到结束")
+    params = {'text': '贴吧签到结果通知：', 'desp': '##所有用户签到结束' }
+    requests.post(send_url, params=params)
+    logger.info("通知Server酱")
 
 
 if __name__ == '__main__':
